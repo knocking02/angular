@@ -1,0 +1,6 @@
+.list-group-item.active {
+    z-index: 2;
+    color: #fff;
+    background-color: #606b77;
+    border-color: #b5b7bb;
+}

@@ -1,0 +1,16 @@
+<mat-card class="example-card">
+  <mat-card-header class="detail-header-style">
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>제목 : {{book.title}}</mat-card-title>
+    <mat-card-subtitle>저자 : {{book.author}}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image class="book-image" src="{{book.imgurl}}">
+  <mat-card-content>
+    <p>
+      ISBN : {{book.isbn}}, 도서 가격 : {{book.price}}, 출판일 : {{book.date}}
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button mat-raised-button color="primary" [disabled]="book.price > 20000">바로 구입</button>
+  </mat-card-actions>
+</mat-card>

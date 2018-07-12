@@ -1,0 +1,9 @@
+<div class="card-body">
+    <div class="example-container">
+      <mat-toolbar class="search-toolbar-style">Search Keyword : {{keyword}}</mat-toolbar>
+      <mat-form-field>
+        <input matInput #inputKeyword placeholder="Search Keyword" (keyup.enter)="setKeyword(inputKeyword.value)" [(ngModel)]="keyword" (ngModelChange)="inputChange($event)">
+      </mat-form-field>
+      <button mat-raised-button color="warn" (click)="setKeyword(inputKeyword.value)">Search!</button>
+    </div>
+</div>
