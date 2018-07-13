@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList} from '@angular/core';
+import { SearchBoxComponent } from '../search-box/search-box.component';
+
+import * as $ from 'jquery';
+import * as _ from 'underscore/underscore';
 
 @Component({
   selector: 'app-book-search-main',
@@ -16,22 +20,48 @@ export class BookSearchMainComponent implements OnInit {
         {value: 'foreign', viewValue: '국외도서'}
     ]
 
-  constructor() { }
+  constructor() {  }
 
   ngOnInit() {
   }
 
   changeValue(category: string): void {
-      //this.displayCategoryName = _.where(this.bookCaterory, category)[0];
-      for (let element of this.bookCaterory) {
-          if(element.value == category) {
-              this.displayCategoryName = element.viewValue;
-          }
-      }
+
+      this.displayCategoryName = _.findWhere(this.bookCaterory, {value: category}).viewValue;
+      //this.displayCategoryName = _.wh
+      // for (let element of this.bookCaterory) {
+      //     if(element.value == category) {
+      //         this.displayCategoryName = element.viewValue;
+      //     }
+      // }
   }
 
   changeTitleBar(searchInfo): void {
        this.searchTitle = `${searchInfo.keyword} ( ${searchInfo.category} )`;
       //this.searchTitle = searchInfo.keyword + '(' + searchInfo.category + ')';
+  }
+
+  /* 자식 View 에 접근하는 법 */
+  @ViewChild(SearchBoxComponent) searchComp: SearchBoxComponent;
+  @ViewChildren(SearchBoxComponent) searchCompArr: QueryList<SearchBoxComponent>;
+
+  clearCondition(): void {
+      this.selectedValue = null;
+      this.searchTitle = null;
+
+      // @ViewChild를 사용할 경우
+      //this.searchComp._bookCategory = null;
+      //this.searchComp.keyword = null;
+
+      // @ViewChildren을 사용할 경우
+      // console.log(this.searchCompArr.toArray().length)
+      // this.searchCompArr.toArray()[0]._bookCategory = null;
+      // this.searchCompArr.toArray()[0].keyword = null;
+
+      for (let schComp of this.searchCompArr.toArray()) {
+          schComp._bookCategory = null;
+          schComp.keyword = null;
+      }
+
   }
 }
