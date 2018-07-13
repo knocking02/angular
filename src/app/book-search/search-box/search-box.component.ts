@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-search-box',
@@ -7,7 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchBoxComponent implements OnInit {
 
-    keyword = '';
+    //@Input() bookCaterory:string;
+    // ==> @Input('bookCaterory') mySelected:string;
+
+    _bookCategory: string;
+    @Input()
+    set bookCaterory(value: string) {
+        if(value != null) {
+            this._bookCategory = 'category: ' + value;
+        }else {
+            this._bookCategory = '';
+        }
+    }
+
+    @Output() searchEvent = new EventEmitter();
+
+    keyword = null;
 
     constructor() { }
 
@@ -16,6 +31,14 @@ export class SearchBoxComponent implements OnInit {
 
   setKeyword(keyword: string): void {
       this.keyword = keyword;
+      this.searchEvent.emit({
+          keyword: `${this.keyword}`,
+          category: `${this._bookCategory.replace('category: ','')}`
+      })
+      // this.searchEvent.emit({
+      //     keyword: this.keyword,
+      //     category: this._bookCategory.replace('category: ','')
+      // })
   }
 
   inputChange(event): void {

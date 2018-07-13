@@ -1,4 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { ViewChild } from '@angular/core';
+
+interface IBook {
+    bauthor: string;
+    bdate: string;
+    btranslator: string;
+    bpublisher: string;
+    btitle: string;
+    bprice: number;
+    bisbn: string;
+    bimgurl: string;
+}
 
 @Component({
   selector: 'app-list-box',
@@ -7,7 +21,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListBoxComponent implements OnInit {
 
-  constructor() { }
+  displayedColumns = ['bisbn', 'btitle', 'bauthor', 'bprice'];
+  dataSource;
+  books: IBook[];
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  constructor(private http: HttpClient) {
+    this.http.get<IBook[]>('assets/data/book.json')
+      .subscribe(res => {
+          this.books = res;
+          this.dataSource = new MatTableDataSource<IBook>(this.books);
+          this.dataSource.paginator = this.paginator;
+          console.log(this.dataSource);
+      });
+  }
 
   ngOnInit() {
   }
