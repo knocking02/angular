@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewChildren, QueryList} from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList, ElementRef} from '@angular/core';
 import { SearchBoxComponent } from '../search-box/search-box.component';
 
 import * as $ from 'jquery';
@@ -20,9 +20,12 @@ export class BookSearchMainComponent implements OnInit {
         {value: 'foreign', viewValue: '국외도서'}
     ]
 
-  constructor() {  }
+  constructor() {
+      console.log('constructor')
+  }
 
   ngOnInit() {
+    console.log('ng.OnInit')
   }
 
   changeValue(category: string): void {
@@ -63,5 +66,13 @@ export class BookSearchMainComponent implements OnInit {
           schComp.keyword = null;
       }
 
+  }
+
+  @ViewChild('resultStatus') resulltToolbar: ElementRef;
+  changeDOM(): void {
+    this.resulltToolbar.nativeElement.onClick = function() {
+      alert('DOM을 직접 제어할 수 있어요!!');
+    };
+    this.resulltToolbar.nativeElement.innerHTML = '클릭해보세요.'
   }
 }
