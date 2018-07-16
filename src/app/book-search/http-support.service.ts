@@ -70,12 +70,13 @@ export class HttpSupportService {
         }
 
         //this.books = tmp;
+        console.log(tmp);
         this.updateBooks.next(tmp);
         //console.log(this.books);
       })
   }
 
   getBooks(): IBook[] {
-    return this.updateBooks.getValue();
+    return this.books;
   }
 }
