@@ -16,7 +16,7 @@ export class BookSearchMainComponent implements OnInit {
     displayCategoryName = null;
     bookCaterory = [
         {value: 'all', viewValue: '국내외도서'},
-        {value: 'coutry', viewValue: '국내도서'},
+        {value: 'country', viewValue: '국내도서'},
         {value: 'foreign', viewValue: '국외도서'}
     ]
 

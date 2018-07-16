@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { ViewChild } from '@angular/core';
+import { HttpSupportService  } from '../http-support.service'
 
 interface IBook {
     bauthor: string;
@@ -27,17 +27,22 @@ export class ListBoxComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private http: HttpClient) {
-    this.http.get<IBook[]>('assets/data/book.json')
-      .subscribe(res => {
-          this.books = res;
-          this.dataSource = new MatTableDataSource<IBook>(this.books);
-          this.dataSource.paginator = this.paginator;
-          console.log(this.dataSource);
-      });
+  constructor(private httpSupportService: HttpSupportService) {
+    this.httpSupportService.updateBooks.subscribe(data => {
+      this.books = data;
+      this.dataSource = new MatTableDataSource<IBook>(this.books);
+      this.dataSource.paginator = this.paginator;
+    })
   }
 
   ngOnInit() {
+  }
+
+  getData(): void {
+    this.books = this.httpSupportService.getBooks();
+    console.log(this.books);
+    this.dataSource = new MatTableDataSource<IBook>(this.books);
+    this.dataSource.paginator = this.paginator;
   }
 
 }
