@@ -12,11 +12,15 @@ import{ BookSearchModule  } from './book-search/book-search.module';
 import{ MovieSearchModule  } from './movie-search/movie-search.module';
 
 import{ AppRoutingModule } from './app-routing/app-routing.module';
+import { TextColorDirective } from './directive/text-color.directive';
+import { BookPricePipe } from './pipe/book-price.pipe';
 
 @NgModule({
 
   declarations: [ // Component, Directive, Pipe에 대한 리스트가 선언된다.
     HomeComponent,
+    TextColorDirective,
+    BookPricePipe,
     AppComponent
   ],
   imports: [    // 의존관계에 있는 Angular Libraly Module과 하위 Module, Routing Module, Ionic과 같은 Third Party Module이 포함된다.

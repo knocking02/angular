@@ -7,7 +7,7 @@
   <img mat-card-image class="book-image" src="{{book.bimgurl}}">
   <mat-card-content>
     <p>
-      ISBN : {{book.isbn}}, 도서 가격 : {{book.price}}, 출판일 : {{book.bdate}}
+      ISBN : {{book.bisbn}}, 도서 가격 : {{book.bprice | currency: 'KRW'}}, 출판일 : {{book.bdate}}
     </p>
   </mat-card-content>
   <mat-card-actions>

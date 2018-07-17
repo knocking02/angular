@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, ViewChildren, QueryList, ElementRef} from '@angular/core';
 import { SearchBoxComponent } from '../search-box/search-box.component';
+import { HttpSupportService } from '../http-support.service';
+import { IBook } from '../model/ibook';
 
 import * as $ from 'jquery';
 import * as _ from 'underscore/underscore';
@@ -7,7 +9,13 @@ import * as _ from 'underscore/underscore';
 @Component({
   selector: 'app-book-search-main',
   templateUrl: './book-search-main.component.html',
-  styleUrls: ['./book-search-main.component.css']
+  styleUrls: ['./book-search-main.component.css'],
+  providers: [  // 하위 Component에서 HttpSupportService 를 공유한다(데이타 등등)
+    {
+      provide: HttpSupportService,
+      useClass: HttpSupportService
+    }
+  ]
 })
 export class BookSearchMainComponent implements OnInit {
 
@@ -20,7 +28,7 @@ export class BookSearchMainComponent implements OnInit {
         {value: 'foreign', viewValue: '국외도서'}
     ]
 
-  constructor() {
+  constructor(private httpSupportService: HttpSupportService) {
       console.log('constructor')
   }
 
@@ -31,7 +39,6 @@ export class BookSearchMainComponent implements OnInit {
   changeValue(category: string): void {
 
       this.displayCategoryName = _.findWhere(this.bookCaterory, {value: category}).viewValue;
-      //this.displayCategoryName = _.wh
       // for (let element of this.bookCaterory) {
       //     if(element.value == category) {
       //         this.displayCategoryName = element.viewValue;
@@ -65,6 +72,11 @@ export class BookSearchMainComponent implements OnInit {
           schComp._bookCategory = null;
           schComp.keyword = null;
       }
+
+      // 선택한 책 정보 초기화
+      this.httpSupportService.updateSelectedBook.next(new Object());
+      // 검색 목록 초기화
+      this.httpSupportService.updateBooks.next([]);
 
   }
 

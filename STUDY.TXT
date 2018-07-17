@@ -1,0 +1,37 @@
+*** Component LifeCycle ***
+
+Component를 대상으로 객체가 소멸되기까지 호출되는 hook method를 순서대로 나열하면 아래와 같다.
+
+1. constructor
+    Component 혹은 Directive가 생성될 때 호출된다.
+    TypeScript에서는 일반적으로 constructor에서 초기화를 진행한다.
+    하지만 Angular에서 사용하는 속성의 초기화는 ngOnInit에서 하는것이 좋다.
+
+2. ngOnChanges
+    부모 Component에서 자식 Component로 데이터가 binding 될 때 혹은 변경되었을때 호출된다.
+    따라서 @Input을 사용하지 않으면 호출되지 않는다.
+
+    ngOnChanges hook method의 인자로 SimpleChanges 객체를 하나 받을수 있다.
+    해당 객체를 이용하면 변경되기 이전값과 이후값등을 알 수 있다.
+
+3. ngOnInit
+    ngOnChanges가 호출딘 이후에 모든 속성에 대한 초기화가 완료된 시점에 딱 한번 호출된다.
+    즉, class가 가지고 있는 속성과 @Input을 통해 값을 내려받은 속성이 모두 초기화가 된 이후에 호출된다.
+    결국 Component의 속성 참조는 ngOnInit hook method 이후에 참조하는것이 좋다.
+
+    결국 생성자는 Sevice의 Injection 같은 사항을 처리하고 속성에 대한 초기화는 ngOnInit에서 처리하는게 좋다.
+
+4. ngDoCheck
+    ngOnInit hook method가 호출된 이후에 호출된다.
+    객체의 모든 변경에(심지어 이전값과 같은 값이 assign되었음에도 호출) 대해 호출되기 때문에 많이 사용하게 되면 그만큼 성는이 저하될수 있다.
+
+5. ngAfterContentInit, ngAfterContentChecked
+    ngDoCheck hook method가 호출된 후에 한번만 호출된다.
+    ngContent directive를 이용해 부모 Component의 template 일부를 자식 Component에서 projection 한 후 호출된다.
+
+7. ngAfterViewInit, ngAfterViewChecked
+    Component에 속한 모든 View와 ViewChild가 시작되고 나서 호출된다.
+    숩게 말하면 HTML이 모두 화면에 출력된 후 호출된다고 생각 하면 된다.
+
+9. ngOnDestory
+    Component가 소멸하기 직전에 호출된다.

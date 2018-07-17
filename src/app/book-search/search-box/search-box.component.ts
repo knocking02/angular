@@ -11,10 +11,10 @@ import { JSON_DATA_CONFIG, JsonConfig } from './json-config'
   providers: [
     //HttpSupportService    // Angular Framework에 어떤 class 가 Injgection 되는지 알려줘야 한다.
     // 위의 코드는 사실 밑의 코드의 축약형이다.
-    {
-      provide: HttpSupportService,    // 데이터 타입
-      useClass: HttpSupportService    // 실제 객체를 생성하기 위해 필요한 class명
-    },
+    // {
+    //   provide: HttpSupportService,    // 데이터 타입
+    //   useClass: HttpSupportService    // 실제 객체를 생성하기 위해 필요한 class명
+    // },
     {
       provide: JsonConfig,
       useValue: JSON_DATA_CONFIG

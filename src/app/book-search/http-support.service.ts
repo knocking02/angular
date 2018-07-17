@@ -1,24 +1,30 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from "rxjs";
+import { IBook } from './model/ibook';
 
-interface IBook {   // 추후 다른 패키지에서 관리
-  bauthor: string;
-  bdate: string;
-  btranslator: string;
-  bpublisher: string;
-  btitle: string;
-  bprice: number;
-  bisbn: string;
-  bimgurl: string;
-}
 
 @Injectable({       // 해당 class 가 다른 class에 주입(Injgection)될수 있다는 의미
   providedIn: 'root'
 })
 export class HttpSupportService {
   books: IBook[];
+
+  // Client에 의해 선택된 책의 정보 - 초기화
+  selectedBook: IBook = {
+    bauthor: '',
+    bdate: '',
+    btranslator: '',
+    bpublisher: '',
+    btitle: '',
+    bprice: 0,
+    bisbn: '',
+    bimgurl: ''
+  };
+
   updateBooks: BehaviorSubject<IBook[]> = new BehaviorSubject<IBook[]>(this.books);
+
+  updateSelectedBook: BehaviorSubject<any> = new BehaviorSubject<any>(this.selectedBook);
 
   constructor(private http: HttpClient) { }  // 주입은 생성자를 이용하게 되고 주입과정은 Angular Framework이 담당한다.
 
@@ -70,9 +76,9 @@ export class HttpSupportService {
         }
 
         //this.books = tmp;
-        console.log(tmp);
-        this.updateBooks.next(tmp);
         //console.log(this.books);
+        this.updateBooks.next(tmp);
+
       })
   }
 

@@ -19,13 +19,14 @@
 
     <ng-container matColumnDef="bprice">
       <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.bprice}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.bprice | currency: 'KRW'}} </mat-cell>
     </ng-container>
 
     <mat-header-row class="list-header-style"
                     *matHeaderRowDef="displayedColumns">
     </mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"
+              (click)="rowSelect(row)"></mat-row>
   </mat-table>
 
   <mat-paginator #paginator
