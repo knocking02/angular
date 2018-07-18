@@ -62,11 +62,17 @@ export class SearchBoxComponent implements OnInit {
         //     category: this._bookCategory.replace('category: ','')
         // })
         console.log('selectedValue: ' + this.selectedValue);
-        this.httpSupportService.getJsonData(
-          this.jsonConfig.url,
-          this.jsonConfig.name,
-          this.selectedValue,
-          this.keyword);
+        // this.httpSupportService.getJsonData(
+        //   this.jsonConfig.url,
+        //   this.jsonConfig.name,
+        //   this.selectedValue,
+        //   this.keyword);
+
+          this.httpSupportService.getJsonData([
+            this.jsonConfig.url,
+            this.jsonConfig.name,
+            this.selectedValue,
+            this.keyword]);
     }
 
     inputChange(event): void {

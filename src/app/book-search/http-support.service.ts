@@ -28,7 +28,8 @@ export class HttpSupportService {
 
   constructor(private http: HttpClient) { }  // 주입은 생성자를 이용하게 되고 주입과정은 Angular Framework이 담당한다.
 
-  getJsonData(url:string, name:string, category:string, keyword:string) {
+  //getJsonData(url:string, name:string, category:string, keyword:string) {
+  getJsonData([url, name, category, keyword]: [string, string, string, string]) {
     this.http.get<IBook[]>(`${url}${name}`)
       .subscribe(res =>{
 
