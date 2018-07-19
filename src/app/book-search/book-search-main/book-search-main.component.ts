@@ -6,6 +6,7 @@ import { IBook } from '../model/ibook';
 import * as $ from 'jquery';
 import * as _ from 'underscore/underscore';
 
+// componet
 @Component({
   selector: 'app-book-search-main',
   templateUrl: './book-search-main.component.html',
