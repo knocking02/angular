@@ -1,5 +1,6 @@
 *** Component LifeCycle ***
 
+===== branch study ====== 
 Component를 대상으로 객체가 소멸되기까지 호출되는 hook method를 순서대로 나열하면 아래와 같다.
 
 1. constructor
